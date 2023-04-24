@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 // Clone the GitHub repository
-                 git branch: 'main', url: 'https://github.com/Adeeshjn/e-commerce-website'
+                 git branch: 'main', url: 'https://github.com/ShafiudeenKameel/CC-ecommerce.git'
                 bat 'echo "Hello, git completed"'
                 bat 'dir'
             }
@@ -51,45 +51,45 @@ pipeline {
                 }            
             }
         }
-//         stage('Port Forwarding') {
-//             steps {
-//                 // Port forward each microservice for local testing
-//                 bat 'kubectl port-forward services/user-microservice 7070:7070'
-//                 bat 'kubectl port-forward services/product-microservice 8080:8080'
-//                 bat 'kubectl port-forward services/order-microservice 9090:9090'
-//             }
-//         }
-//         stage('Port Forwarding') {
+        stage('Port Forwarding') {
+            steps {
+                // Port forward each microservice for local testing
+                bat 'kubectl port-forward services/user-microservice 7070:7070'
+                bat 'kubectl port-forward services/product-microservice 8080:8080'
+                bat 'kubectl port-forward services/order-microservice 9090:9090'
+            }
+        }
+        stage('Port Forwarding') {
             
-//                 // Run steps in parallel within the same stage
-//                 parallel {
-//                     stage('Port 7070') {
-//                         steps {
-//                             // Run step 1sleep time: 300, unit: 'SECONDS'
-//                             bat 'kubectl port-forward services/user-microservice 7070:7070'
-//                         }
-//                     }
-//                     stage('Port 8080') {
-//                         steps {
-//                             // Run step 2
-//                             bat 'kubectl port-forward services/product-microservice 8080:8080'
-//                         }
-//                     }
-//                     stage('Port 9090') {
-//                         steps {
-//                             // Run step 3
-//                             bat 'kubectl port-forward services/order-microservice 9090:9090'
-//                         }
-//                     }
-//                 }
+                // Run steps in parallel within the same stage
+                parallel {
+                    stage('Port 7070') {
+                        steps {
+                            // Run step 1sleep time: 300, unit: 'SECONDS'
+                            bat 'kubectl port-forward services/user-microservice 7070:7070'
+                        }
+                    }
+                    stage('Port 8080') {
+                        steps {
+                            // Run step 2
+                            bat 'kubectl port-forward services/product-microservice 8080:8080'
+                        }
+                    }
+                    stage('Port 9090') {
+                        steps {
+                            // Run step 3
+                            bat 'kubectl port-forward services/order-microservice 9090:9090'
+                        }
+                    }
+                }
             
-//         }
+        }
     }
 
-//     post {
-//         always {
-//             // Clean up port forwarding processes
-//             bat 'pkill -f "kubectl port-forward"'
-//         }
-//     }
+    post {
+        always {
+            // Clean up port forwarding processes
+            bat 'pkill -f "kubectl port-forward"'
+        }
+    }
 }
