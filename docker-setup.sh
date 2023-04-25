@@ -1,13 +1,13 @@
-cd user-docker
+cd user-microservice
 docker build . --tag user-docker
 
 
 cd ..
-cd order-docker
+cd order-microservice
 docker build . --tag order-docker
 
 cd ..
-cd product-docker
+cd product-microservice
 docker build . --tag product-docker
 
 cd ..
